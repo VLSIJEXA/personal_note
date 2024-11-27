@@ -1,0 +1,26 @@
+from xml.etree.ElementTree import Element, SubElement, tostring
+from xml.dom import minidom
+
+# Function to generate SVG with user ID
+def generate_wakatime_svg(user_id):
+    # Create the root SVG element
+    svg = Element('svg', xmlns="http://www.w3.org/2000/svg", width="500", height="100", version="1.1")
+    
+    # Create a text element inside the SVG to display the user ID
+    text = SubElement(svg, 'text', x="10", y="40", font_family="Arial", font_size="24", fill="black")
+    text.text = f"Wakatime User ID: {user_id}"
+    
+    # Convert the tree structure to a string
+    svg_str = tostring(svg)
+    
+    # Prettify the SVG string for better readability
+    pretty_svg = minidom.parseString(svg_str).toprettyxml(indent="  ")
+    
+    # Write the SVG to a file
+    with open('your_wakatime_user_id.svg', 'w') as f:
+        f.write(pretty_svg)
+    
+    print("SVG file generated successfully!")
+
+# Example: Generate SVG for your Wakatime user ID 'VLSIJEXA'
+generate_wakatime_svg("VLSIJEXA")
